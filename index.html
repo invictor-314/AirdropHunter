@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airdrop Hunter</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide-react.js"></script>
+
+    <style>
+        /* Menggunakan font Poppins untuk seluruh halaman */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1117; /* Warna latar belakang GitHub dark mode */
+            color: #c9d1d9; /* Warna teks GitHub dark mode */
+        }
+        
+        /* Style untuk search input */
+        .search-input::placeholder {
+            color: #8b949e;
+        }
+
+        /* Transisi halus untuk semua elemen */
+        * {
+            transition: all 0.2s ease-in-out;
+        }
+
+        /* Custom scrollbar untuk tampilan futuristik */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #484f58;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300">
+
+    <div class="container mx-auto px-4 py-8">
+
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-center mb-8 pb-4 border-b border-slate-700">
+            <h1 class="text-3xl md:text-4xl font-bold text-cyan-400 mb-4 sm:mb-0">
+                Airdrop Hunter
+            </h1>
+            <div class="relative w-full sm:w-auto">
+                <input type="search" id="searchInput" placeholder="Cari airdrop..." class="search-input w-full sm:w-64 bg-slate-800 border border-slate-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-500"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- Daftar Airdrop -->
+        <main id="airdropList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Kartu Airdrop akan dimasukkan di sini oleh JavaScript -->
+        </main>
+
+        <!-- Pesan jika tidak ada hasil -->
+        <div id="noResults" class="text-center py-16 text-slate-500 hidden">
+            <h2 class="text-2xl font-semibold">Tidak Ada Airdrop Ditemukan</h2>
+            <p>Coba kata kunci lain atau periksa kembali nanti.</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 mt-16 py-8">
+        <div class="container mx-auto px-4 text-center text-slate-500">
+            <p class="mb-4">Terhubung dengan saya:</p>
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-cyan-400">Twitter</a>
+                <a href="#" class="hover:text-cyan-400">Telegram</a>
+                <a href="#" class="hover:text-cyan-400">Discord</a>
+                <a href="mailto:email@contoh.com" class="hover:text-cyan-400">Email</a>
+            </div>
+            <p class="text-sm">&copy; 2024 Airdrop Hunter. Semua Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data airdrop (Anda bisa menambahkan atau mengubah data di sini)
+        const airdrops = [
+            {
+                id: 1,
+                name: "ZetaChain Potential",
+                link: "https://hub.zetachain.com/claim",
+                description: "Airdrop untuk pengguna testnet ZetaChain. Hubungkan wallet dan klaim poin XP Anda.",
+                status: "Berlangsung"
+            },
+            {
+                id: 2,
+                name: "Starknet Airdrop",
+                link: "https://starknet.io/airdrop",
+                description: "Distribusi token STRK untuk kontributor awal dan pengguna ekosistem Starknet.",
+                status: "Berakhir"
+            },
+            {
+                id: 3,
+                name: "LayerZero Checker",
+                link: "https://layerzero.foundation/check",
+                description: "Cek alokasi airdrop ZRO berdasarkan aktivitas cross-chain Anda.",
+                status: "Berlangsung"
+            },
+            {
+                id: 4,
+                name: "Blast Gold Distribution",
+                link: "https://blast.io/airdrop",
+                description: "Distribusi Blast Gold untuk pengguna yang menyediakan likuiditas dan developer.",
+                status: "Berlangsung"
+            },
+            {
+                id: 5,
+                name: "Arbitrum Season 1",
+                link: "https://arbitrum.foundation/",
+                description: "Klaim airdrop ARB untuk pengguna awal jaringan Arbitrum One dan Nova.",
+                status: "Berakhir"
+            },
+            {
+                id: 6,
+                name: "EigenLayer Restaking",
+                link: "https://eigenlayer.xyz/",
+                description: "Poin dan potensi airdrop untuk para restaker ETH di platform EigenLayer.",
+                status: "Berlangsung"
+            }
+        ];
+
+        const airdropList = document.getElementById('airdropList');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+
+        // Fungsi untuk merender daftar airdrop
+        function renderAirdrops(items) {
+            airdropList.innerHTML = ''; // Kosongkan daftar sebelum render ulang
+            
+            if (items.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+
+            items.forEach(airdrop => {
+                const card = document.createElement('div');
+                card.className = 'airdrop-card bg-slate-800 border border-slate-700 rounded-lg p-5 flex flex-col hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/10';
+                card.dataset.id = airdrop.id;
+
+                const statusColor = airdrop.status === 'Berlangsung' ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-semibold text-slate-100 pr-4">${airdrop.name}</h3>
+                        <span 
+                            class="status-toggle cursor-pointer text-xs font-medium px-3 py-1 rounded-full border ${statusColor}"
+                            onclick="toggleStatus(${airdrop.id}, this)"
+                        >
+                            ${airdrop.status}
+                        </span>
+                    </div>
+                    <p class="text-slate-400 text-sm mb-4 flex-grow">${airdrop.description}</p>
+                    <a href="${airdrop.link}" target="_blank" rel="noopener noreferrer" class="inline-block bg-cyan-600 text-white font-semibold text-center py-2 px-4 rounded-lg hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-opacity-50 mt-auto">
+                        Kunjungi Link
+                    </a>
+                `;
+                airdropList.appendChild(card);
+            });
+        }
+
+        // Fungsi untuk mengubah status
+        window.toggleStatus = (id, element) => {
+            const airdrop = airdrops.find(a => a.id === id);
+            if (airdrop) {
+                // Toggle status di data
+                airdrop.status = airdrop.status === 'Berlangsung' ? 'Berakhir' : 'Berlangsung';
+                
+                // Update tampilan elemen
+                element.textContent = airdrop.status;
+                element.classList.toggle('bg-green-500/20', airdrop.status === 'Berlangsung');
+                element.classList.toggle('text-green-400', airdrop.status === 'Berlangsung');
+                element.classList.toggle('border-green-500/30', airdrop.status === 'Berlangsung');
+                element.classList.toggle('bg-red-500/20', airdrop.status === 'Berakhir');
+                element.classList.toggle('text-red-400', airdrop.status === 'Berakhir');
+                element.classList.toggle('border-red-500/30', airdrop.status === 'Berakhir');
+            }
+        };
+
+        // Event listener untuk input pencarian
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredAirdrops = airdrops.filter(airdrop => 
+                airdrop.name.toLowerCase().includes(searchTerm) ||
+                airdrop.description.toLowerCase().includes(searchTerm)
+            );
+            renderAirdrops(filteredAirdrops);
+        });
+
+        // Render awal saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAirdrops(airdrops);
+        });
+    </script>
+
+</body>
+</html>
