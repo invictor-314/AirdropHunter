@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airdrop Hunter</title>
+
+    <!-- Favicon -->
+    <!-- Ganti 'favicon.ico' dengan path ke file ikon Anda. Ukuran standar adalah 32x32 atau 16x16 pixels. -->
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -96,48 +101,49 @@
 
     <script>
         // Data airdrop (Anda bisa menambahkan atau mengubah data di sini)
+        // Ubah "status" menjadi "Berlangsung" atau "Berakhir" untuk mengubah warna secara otomatis.
         const airdrops = [
             {
                 id: 1,
                 name: "ZetaChain Potential",
                 link: "https://hub.zetachain.com/claim",
                 description: "Airdrop untuk pengguna testnet ZetaChain. Hubungkan wallet dan klaim poin XP Anda.",
-                status: "Berlangsung"
+                status: "Berlangsung" // <-- Ubah di sini
             },
             {
                 id: 2,
                 name: "Starknet Airdrop",
                 link: "https://starknet.io/airdrop",
                 description: "Distribusi token STRK untuk kontributor awal dan pengguna ekosistem Starknet.",
-                status: "Berakhir"
+                status: "Berakhir" // <-- Ubah di sini
             },
             {
                 id: 3,
                 name: "LayerZero Checker",
                 link: "https://layerzero.foundation/check",
                 description: "Cek alokasi airdrop ZRO berdasarkan aktivitas cross-chain Anda.",
-                status: "Berlangsung"
+                status: "Berlangsung" // <-- Ubah di sini
             },
             {
                 id: 4,
                 name: "Blast Gold Distribution",
                 link: "https://blast.io/airdrop",
                 description: "Distribusi Blast Gold untuk pengguna yang menyediakan likuiditas dan developer.",
-                status: "Berlangsung"
+                status: "Berlangsung" // <-- Ubah di sini
             },
             {
                 id: 5,
                 name: "Arbitrum Season 1",
                 link: "https://arbitrum.foundation/",
                 description: "Klaim airdrop ARB untuk pengguna awal jaringan Arbitrum One dan Nova.",
-                status: "Berakhir"
+                status: "Berakhir" // <-- Ubah di sini
             },
             {
                 id: 6,
                 name: "EigenLayer Restaking",
                 link: "https://eigenlayer.xyz/",
                 description: "Poin dan potensi airdrop untuk para restaker ETH di platform EigenLayer.",
-                status: "Berlangsung"
+                status: "Berlangsung" // <-- Ubah di sini
             }
         ];
 
@@ -160,14 +166,14 @@
                 card.className = 'airdrop-card bg-slate-800 border border-slate-700 rounded-lg p-5 flex flex-col hover:border-cyan-500 hover:shadow-lg hover:shadow-cyan-500/10';
                 card.dataset.id = airdrop.id;
 
+                // Warna status ditentukan secara otomatis berdasarkan data
                 const statusColor = airdrop.status === 'Berlangsung' ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30';
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start mb-3">
                         <h3 class="text-xl font-semibold text-slate-100 pr-4">${airdrop.name}</h3>
                         <span 
-                            class="status-toggle cursor-pointer text-xs font-medium px-3 py-1 rounded-full border ${statusColor}"
-                            onclick="toggleStatus(${airdrop.id}, this)"
+                            class="text-xs font-medium px-3 py-1 rounded-full border ${statusColor}"
                         >
                             ${airdrop.status}
                         </span>
@@ -180,24 +186,6 @@
                 airdropList.appendChild(card);
             });
         }
-
-        // Fungsi untuk mengubah status
-        window.toggleStatus = (id, element) => {
-            const airdrop = airdrops.find(a => a.id === id);
-            if (airdrop) {
-                // Toggle status di data
-                airdrop.status = airdrop.status === 'Berlangsung' ? 'Berakhir' : 'Berlangsung';
-                
-                // Update tampilan elemen
-                element.textContent = airdrop.status;
-                element.classList.toggle('bg-green-500/20', airdrop.status === 'Berlangsung');
-                element.classList.toggle('text-green-400', airdrop.status === 'Berlangsung');
-                element.classList.toggle('border-green-500/30', airdrop.status === 'Berlangsung');
-                element.classList.toggle('bg-red-500/20', airdrop.status === 'Berakhir');
-                element.classList.toggle('text-red-400', airdrop.status === 'Berakhir');
-                element.classList.toggle('border-red-500/30', airdrop.status === 'Berakhir');
-            }
-        };
 
         // Event listener untuk input pencarian
         searchInput.addEventListener('input', (e) => {
